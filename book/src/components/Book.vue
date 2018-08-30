@@ -4,6 +4,7 @@
     <div class="jumbotron">
       <h1>testing bootstrap on vue</h1>
       <p>{{msg}}</p>
+      <router-link to="/book">Tambah Data</router-link>
     </div>
     <ul>
       <li v-for="books in book">
@@ -30,10 +31,10 @@ export default {
       axios.delete('http://localhost:5000/book/'+id).then((res)=>{
         if(res.status==200){
           axios.get('http://localhost:5000/book').then((res)=>{
-      this.book = res.data
-    },(error)=>{
-      console.log(error)
-    });
+            this.book = res.data
+          },(error)=>{
+            console.log(error)
+          });
         }
       }, (error)=>{
         console.log(error);
