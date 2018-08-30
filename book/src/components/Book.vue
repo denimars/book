@@ -30,10 +30,10 @@ export default {
       axios.delete('http://localhost:5000/book/'+id).then((res)=>{
         if(res.status==200){
           axios.get('http://localhost:5000/book').then((res)=>{
-          his.book = res.data
-         },(error)=>{
-       console.log(error)
-      });
+      this.book = res.data
+    },(error)=>{
+      console.log(error)
+    });
         }
       }, (error)=>{
         console.log(error);
