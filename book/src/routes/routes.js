@@ -1,5 +1,6 @@
 import Book from '../components/Book'
 import BookSave from '../components/BookSave'
+import BookEdit from '../components/BookEdit'
 
 const routes = [
   {
@@ -9,6 +10,10 @@ const routes = [
   {
     path:'/book',
     component:BookSave
+  },
+  {
+    path:'/book/:id',
+    component:BookEdit
   }
 ]
 

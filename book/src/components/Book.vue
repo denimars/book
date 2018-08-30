@@ -7,7 +7,7 @@
     </div>
     <ul>
       <li v-for="books in book">
-        <router-link to='/book'>{{books.judul}}</router-link>
+        <router-link v-bind:to="'/book/'+books.id">{{books.judul}}</router-link> <button v-on:click="hapus(books.id)" class="btn btn-danger">Hapus</button>
       </li>
     </ul>
 
@@ -24,6 +24,21 @@ export default {
       msg: "Welcome to Your Vue.js App",
       book:[]
     };
+  },
+  methods:{
+    hapus:function(id){
+      axios.delete('http://localhost:5000/book/'+id).then((res)=>{
+        if(res.status==200){
+          axios.get('http://localhost:5000/book').then((res)=>{
+          his.book = res.data
+         },(error)=>{
+       console.log(error)
+      });
+        }
+      }, (error)=>{
+        console.log(error);
+      })
+    }
   },
   created(){
     axios.get('http://localhost:5000/book').then((res)=>{
