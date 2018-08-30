@@ -42,7 +42,7 @@ export default {
           if(res.status==200){
             this.$router.push('/')
           }
-        }, (error)=>{
+        }).catch((error)=>{
           console.log(error)
         });
       },
