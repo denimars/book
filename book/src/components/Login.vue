@@ -52,7 +52,7 @@ export default {
           }
         }).catch((error)=>{
           if(error.response.status==403){
-            alert('user atau password salah')
+            alert('user atau password salahe')
           }
         })
       }

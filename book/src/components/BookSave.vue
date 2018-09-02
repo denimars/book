@@ -42,7 +42,7 @@ export default {
             console.log(localStorage.getItem('refresh'))
             console.log('_____________')
             axios.get('http://localhost:5000/user/refresh/token', {headers:{Authorization:'Bearer '+localStorage.getItem('refresh')}}).then((res)=>{
-              console.log(res)
+              //console.log(res)
               localStorage.setItem('token', res.data.token)
             })
           }

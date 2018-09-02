@@ -51,8 +51,14 @@ export default {
     axios.get('http://localhost:5000/book',{headers:{Authorization:'Bearer '+localStorage.getItem('token')}}).then(res=>{
       this.book = res.data
     }).catch(error=>{
-      console.log(localStorage.getItem('user'))
-      console.log(error.response)
+      if(error.response.status==401){
+        axios.get('http://localhost:5000/user/refresh/token',{headers:{Authorization:'Bearer '+localStorage.getItem('refresh')}}).then((res)=>{
+          localStorage.getItem('token',res.data.token)
+        }).catch(error=>{
+          localStorage.clear()
+          this.$routes.push('/login')
+        })
+      }
     })
   }
     

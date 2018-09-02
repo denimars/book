@@ -29,10 +29,16 @@ router.beforeEach((to, from, next)=>{
       //let user = JSON.parse(localStorage.getItem('user'))
       
       if(to.matched.some(record=>record.meta.is_admin)){
-        if(localStorage.getItem('admin')){
+        let admin = false
+        if(localStorage.getItem('admin')==='true'){
+          admin=true
+        }
+        if(admin){
           next()
         }else{
-          next({name:'book'})
+          next({
+            name:'book'
+          })
         }
       }else{
         next()

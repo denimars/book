@@ -3,6 +3,7 @@ import BookSave from '../components/BookSave'
 import BookEdit from '../components/BookEdit'
 import Login from '../components/Login'
 import Logout from '../components/Logout'
+import Register from '../components/Register'
 
 
 const router = [
@@ -15,8 +16,16 @@ const router = [
       }
     },{
       path:'/login',
-      name:Login,
+      name:'login',
       component:Login,
+      meta:{
+        guest:true
+      }
+    },
+    {
+      path:'/register',
+      name:'register',
+      component:Register,
       meta:{
         guest:true
       }
