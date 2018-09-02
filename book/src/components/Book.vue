@@ -4,7 +4,11 @@
     <div class="jumbotron">
       <h1>testing bootstrap on vue</h1>
       <p>{{msg}}</p>
-      <router-link to="/book">Tambah Data</router-link>
+      <router-link to="/book">Tambah Data</router-link>/
+      <router-link to="/logout">Logout</router-link>
+      <br>
+      <br>
+      {{user}}
     </div>
     <ul>
       <li v-for="books in book">
@@ -23,14 +27,15 @@ export default {
   data() {
     return {
       msg: "Welcome to Your Vue.js App",
-      book:[]
+      book:[],
+      user:localStorage.getItem('user')
     };
   },
   methods:{
     hapus:function(id){
-      axios.delete('http://localhost:5000/book/'+id).then((res)=>{
+      axios.delete('http://localhost:5000/book/'+id,{headers:{Authorization:'Bearer '+localStorage.getItem('token')}}).then((res)=>{
         if(res.status==200){
-          axios.get('http://localhost:5000/book').then((res)=>{
+          axios.get('http://localhost:5000/book',{headers:{Authorization:'Bearer '+localStorage.getItem('token')}}).then((res)=>{
             this.book = res.data
           },(error)=>{
             console.log(error)
@@ -42,11 +47,16 @@ export default {
     }
   },
   created(){
-    axios.get('http://localhost:5000/book').then((res)=>{
+    //localStorage.clear()
+    axios.get('http://localhost:5000/book',{headers:{Authorization:'Bearer '+localStorage.getItem('token')}}).then(res=>{
       this.book = res.data
-    },(error)=>{
-      console.log(error)
-    });
+    }).catch(error=>{
+      console.log(localStorage.getItem('user'))
+      console.log(error.response)
+    })
   }
+    
+  
+
 };
 </script>

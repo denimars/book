@@ -38,7 +38,7 @@ export default {
           tahun_terbit:this.tahun_terbit,
           deskripsi:this.deskripsi
         }
-        axios.put('http://localhost:5000/book/'+this.id,data).then((res)=>{
+        axios.put('http://localhost:5000/book/'+this.id,data,{headers:{Authorization:'Bearer '+localStorage.getItem('token')}}).then((res)=>{
           if(res.status==200){
             this.$router.push('/')
           }
@@ -57,7 +57,7 @@ export default {
     },
     created(){
       this.id = this.$route.params.id
-      axios.get('http://localhost:5000/bookid/'+this.id).then((res)=>{
+      axios.get('http://localhost:5000/bookid/'+this.id,{headers:{Authorization:'Bearer '+localStorage.getItem('token')}}).then((res)=>{
         if(res.status==200){
           this.judul = res.data.judul
           this.tahun_terbit=res.data.tahun_terbit

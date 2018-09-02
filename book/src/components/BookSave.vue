@@ -30,19 +30,22 @@ export default {
       }
     },
     methods:{
-      save:function(){
+      save:async function(){
         let book = {judul:this.judul, tahun_terbit:this.tahun_terbit,deskripsi:this.deskripsi}
-        axios.post('http://localhost:5000/book', book).then((res)=>{
+        axios.post('http://localhost:5000/book',book,{headers:{Authorization:'Bearer '+localStorage.getItem('token')}}).then((res)=>{
           this.loading = true
-          if(res.status==200){
-            //this.$router.push('/')
-            this.loading=false
-            this.$router.push('/')
-          }
-    
-        }, (error)=>{
           this.loading=false
-          console.log(error)
+          this.$router.push('/')
+    
+        }).catch((error)=>{
+          if(error.response.status==401){
+            console.log(localStorage.getItem('refresh'))
+            console.log('_____________')
+            axios.get('http://localhost:5000/user/refresh/token', {headers:{Authorization:'Bearer '+localStorage.getItem('refresh')}}).then((res)=>{
+              console.log(res)
+              localStorage.setItem('token', res.data.token)
+            })
+          }
         });
       },
       clear:function(){
