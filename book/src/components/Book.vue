@@ -53,7 +53,7 @@ export default {
     }).catch(error=>{
       if(error.response.status==401){
         axios.get('http://localhost:5000/user/refresh/token',{headers:{Authorization:'Bearer '+localStorage.getItem('refresh')}}).then((res)=>{
-          localStorage.getItem('token',res.data.token)
+          localStorage.setItem('token',res.data.token)
         }).catch(error=>{
           localStorage.clear()
           this.$routes.push('/login')
